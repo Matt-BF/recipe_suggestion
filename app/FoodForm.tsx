@@ -1,17 +1,25 @@
-export default function FoodForm() {
-  const proteinOptions: string[] = ["Meat", "Lamb", "Chicken", "Fish", "Pork"];
-
+export default function FoodForm({
+  proteinOptions,
+  handleChange,
+  handleSubmit,
+}) {
   return (
-    <form className="flex flex-col border rounded border-gray-100">
+    <form
+      className="flex flex-col border rounded border-gray-100"
+      onSubmit={handleSubmit}
+    >
       <div className="p-8">
         <label className="mr-4">Protein source</label>
         <select
           className="border rounded border-solid bg-gray-100"
           name="protein"
+          onChange={handleChange}
         >
           <option value="">Choose a protein source</option>
-          {proteinOptions.map((proteinOption) => (
-            <option value={proteinOption}>{proteinOption}</option>
+          {proteinOptions.map((proteinOption: string, idx: number) => (
+            <option key={idx} value={proteinOption}>
+              {proteinOption}
+            </option>
           ))}
         </select>
 
