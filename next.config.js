@@ -3,6 +3,13 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = {
+  experimental: {
+    appDir: true,
+  },
+  images: {
+    remotePatterns: [{ hostname: "edamam-product-images.s3.amazonaws.com" }],
+  },
+};
