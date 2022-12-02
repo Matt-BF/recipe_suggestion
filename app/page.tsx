@@ -10,11 +10,14 @@ const page = () => {
   const [recipes, setRecipes] = useState([]);
 
   const fetchRecipes = async () => {
-    const recipeResponse = await fetch(
+    /* const recipeResponse = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}${ingredient}&app_id=${process.env.NEXT_PUBLIC_APP_ID}&app_key=${process.env.NEXT_PUBLIC_APP_KEY}`
     );
     const recipes = await recipeResponse.json();
     console.log(recipes.hits);
+    setRecipes(recipes.hits); */
+    const recipeResponse = await fetch("./res_test.json");
+    const recipes = await recipeResponse.json();
     setRecipes(recipes.hits);
   };
 
@@ -27,16 +30,15 @@ const page = () => {
   return (
     <>
       <h2 className="text-3xl text-center p-8">Recipe Suggestions</h2>
-      <p className="text-lg p-8">Choose things that are in your pantry </p>
-      {!submitted && (
+      {!submitted ? (
         <FoodForm
           proteinOptions={proteinOptions}
           handleChange={(e) => setIngredient(e.target.value)}
           handleSubmit={handleSubmit}
         />
+      ) : (
+        <Results recipes={recipes} goBack={(e) => setSubmitted(false)} />
       )}
-
-      {submitted && <Results recipes={recipes} />}
     </>
   );
 };
