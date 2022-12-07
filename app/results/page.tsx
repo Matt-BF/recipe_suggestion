@@ -8,7 +8,7 @@ const page = () => {
   const [recipes, setRecipes] = useState([]);
   const fetchRecipes = async () => {
     /* const recipeResponse = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_URL}${ingredient}&app_id=${process.env.NEXT_PUBLIC_APP_ID}&app_key=${process.env.NEXT_PUBLIC_APP_KEY}`
+            `https://api.edamam.com/api/recipes/v2?type=public&q=${ingredient}&app_id=${process.env.NEXT_PUBLIC_RECIPE_APP_ID}&app_key=${process.env.NEXT_PUBLIC_RECIPE_APP_KEY}`
         );
         const recipes = await recipeResponse.json();
         console.log(recipes.hits);

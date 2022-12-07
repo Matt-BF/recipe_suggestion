@@ -1,5 +1,5 @@
 export default function FoodForm({
-  proteinOptions,
+  ingredientOptions,
   handleChange,
   handleSubmit,
 }) {
@@ -12,19 +12,15 @@ export default function FoodForm({
         onSubmit={handleSubmit}
       >
         <div className="p-8">
-          <label className="mr-4">Protein source</label>
-          <select
-            className="border rounded border-solid bg-gray-100"
-            name="protein"
-            onChange={handleChange}
-          >
-            <option value="">Choose a protein source</option>
-            {proteinOptions.map((proteinOption: string, idx: number) => (
-              <option key={idx} value={proteinOption}>
-                {proteinOption}
-              </option>
-            ))}
-          </select>
+          <div className="flex flex-col">
+            <label className="mb-5">Ingredients</label>
+            <input
+              type="text"
+              onChange={handleChange}
+              className="w-1/2"
+              placeholder="start typing to show ingredients"
+            />
+          </div>
 
           <div className="flex justify-center">
             <input
