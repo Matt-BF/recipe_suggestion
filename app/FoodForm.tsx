@@ -1,8 +1,4 @@
-export default function FoodForm({
-  ingredientOptions,
-  handleChange,
-  handleSubmit,
-}) {
+export default function FoodForm({ suggestions, handleChange, handleSubmit }) {
   return (
     <>
       <p className="text-lg p-8">Choose things that are in your pantry </p>
@@ -20,6 +16,10 @@ export default function FoodForm({
               className="w-1/2"
               placeholder="start typing to show ingredients"
             />
+            {suggestions.length > 0 &&
+              suggestions.map((suggestion, idx) => (
+                <p key={idx}>{suggestion}</p>
+              ))}
           </div>
 
           <div className="flex justify-center">

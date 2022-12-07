@@ -1,23 +1,16 @@
-"use client";
-import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import RecipeCard from "./RecipeCard";
 
-const page = () => {
-  const [recipes, setRecipes] = useState([]);
-  const fetchRecipes = async () => {
-    /* const recipeResponse = await fetch(
-            `https://api.edamam.com/api/recipes/v2?type=public&q=${ingredient}&app_id=${process.env.NEXT_PUBLIC_RECIPE_APP_ID}&app_key=${process.env.NEXT_PUBLIC_RECIPE_APP_KEY}`
-        );
-        const recipes = await recipeResponse.json();
-        console.log(recipes.hits);
-        setRecipes(recipes.hits); */
-    const recipeResponse = await fetch("res_test.json");
-    const recipes = await recipeResponse.json();
-    setRecipes(recipes.hits);
-  };
-  fetchRecipes();
+const fetchRecipes = async (ingredient) => {
+  const recipeResponse = await fetch(
+    `https://api.edamam.com/api/recipes/v2?type=public&q=${ingredient}&app_id=${process.env.NEXT_PUBLIC_RECIPE_APP_ID}&app_key=${process.env.NEXT_PUBLIC_RECIPE_APP_KEY}&field=label&field=image&field=url&field=ingredientLines`
+  );
+  const recipes = await recipeResponse.json();
+  return recipes.hits;
+};
+
+const page = async ({ searchParams }) => {
+  const recipes = await fetchRecipes(searchParams.ingredient);
 
   return (
     <div className="p-8">
@@ -29,6 +22,7 @@ const page = () => {
         {recipes.map(
           ({ recipe: { label, image, url, ingredientLines } }, idx: number) => (
             <RecipeCard
+              key={idx}
               label={label}
               image={image}
               url={url}
