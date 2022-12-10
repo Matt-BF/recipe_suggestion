@@ -13,12 +13,12 @@ const page = async ({ searchParams }) => {
   const recipes = await fetchRecipes(searchParams.ingredient);
 
   return (
-    <div className="p-8">
+    <div className="p-8 bg-slate-50">
       <Link className="mb-5 p-3 border rounded" href="/">
         Go back
       </Link>
-      <h2 className="text-center text-2xl">Here are your recipes</h2>
-      <div className="grid grid-cols-4">
+      <h2 className="text-center text-2xl mb-5">Here are your recipes</h2>
+      <div className="grid grid-cols-4 gap-5">
         {recipes.map(
           ({ recipe: { label, image, url, ingredientLines } }, idx: number) => (
             <RecipeCard

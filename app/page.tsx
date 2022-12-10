@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 const page = () => {
   const [ingredient, setIngredient] = useState(null);
   const [suggestions, setSuggestions] = useState([]);
+  const [inputValue, setInputValue] = useState("");
   const [invalid, setInvalid] = useState(false);
   const [canCall, setcanCall] = useState(true);
   const router = useRouter();
@@ -27,6 +28,7 @@ const page = () => {
 
   const handleChange = async (e) => {
     setIngredient(e.target.value);
+    setInputValue(e.target.value);
 
     if (e.target.value.length >= 3 && canCall) {
       setcanCall(false);
@@ -40,21 +42,31 @@ const page = () => {
     }
   };
 
+  const putSuggestionOnInput = (e) => {
+    setInputValue(e.target.innerText);
+    setIngredient(e.target.innerText);
+    setSuggestions([]);
+  };
+
   return (
-    <>
-      <h2 className="text-3xl text-center p-8">Recipe Suggestions</h2>
+    <div className="bg-slate-50">
+      <h2 className="text-3xl text-center text-gray-600 p-8">
+        Recipe Suggestions
+      </h2>
 
       <FoodForm
         handleChange={handleChange}
         handleSubmit={handleSubmit}
         suggestions={suggestions}
+        onClick={putSuggestionOnInput}
+        inputValue={inputValue}
       />
       {invalid && (
         <div className="text-red-900 text-center">
           Please choose at least one ingredient
         </div>
       )}
-    </>
+    </div>
   );
 };
 export default page;
