@@ -1,3 +1,6 @@
+import { faUtensils } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 export default function FoodForm({ props }) {
   const {
     handleSubmit,
@@ -29,7 +32,7 @@ export default function FoodForm({ props }) {
               </div>
             )}
             {suggestions.length > 0 && (
-              <div className="border border-slate-200 w-1/2">
+              <div className="border border-slate-200 w-fit">
                 {suggestions.map((suggestion, idx) => (
                   <p
                     className="text-slate-600 hover:cursor-pointer hover:text-emerald-300 border-b border-slate-200 p-2"
@@ -45,10 +48,13 @@ export default function FoodForm({ props }) {
 
           <div className="flex justify-center">
             <button
-              className="bg-emerald-500 mb-2 p-2 mt-8 rounded-md
-              hover:bg-emerald-400 text-slate-100 "
+              className="border border-emerald-500 mb-2 p-2 mt-8 rounded-md
+              hover:bg-emerald-100 text-gray-500 "
             >
-              Submit
+              Submit{" "}
+              <span>
+                <FontAwesomeIcon icon={faUtensils} className="ml-1" />
+              </span>
             </button>
           </div>
         </div>
