@@ -2,13 +2,11 @@
 import { useState } from "react";
 import Image from "next/image";
 
-//https://stackoverflow.com/questions/64846858/how-to-use-tailwind-css-with-next-js-image
-
 const RecipeCard = ({ label, image, url, ingredientLines }) => {
   const [expand, setExpand] = useState(false);
   return (
-    <div className="border border-slate-300 rounded-md flex flex-col">
-      <div className="h-60 relative">
+    <div className="border border-slate-300 bg-white drop-shadow-md rounded-md flex flex-col mb-5">
+      <div className="h-48 relative">
         <Image
           src={image}
           alt={`image for ${label}`}
@@ -16,25 +14,30 @@ const RecipeCard = ({ label, image, url, ingredientLines }) => {
           className="rounded-md border-b border-slate-300"
         />
       </div>
-      <p className="text-center text-lg mb-3 mt-5">{label}</p>
-      <p className="text-center mb-5 text-green-900 hover:text-green-600">
-        <a target="_blank" href={url}>
+      <p className="text-center text-lg m-5 text-gray-600">{label}</p>
+      <p className="text-center mt-5 mb-2 text-green-900 hover:text-green-600">
+        <a
+          target="_blank"
+          className="border rounded-md p-2 border-emerald-500 text-slate-100 bg-emerald-500 hover:bg-emerald-400 mt-5"
+          href={url}
+        >
           See recipe
         </a>
       </p>
-      {expand &&
-        ingredientLines.map((ingredient, idx) => (
-          <div className="ml-5 mb-3">
-            <p key={idx}>{ingredient}</p>
-          </div>
-        ))}
 
       <button
-        className="text-blue-900 hover:text-blue-600 mb-5"
+        className="border rounded-md p-2 border-sky-500 text-slate-100 bg-sky-500 hover:bg-sky-400  m-auto mb-5 mt-5"
         onClick={(e) => setExpand(!expand)}
       >
         {expand ? "Hide ingredients" : "See ingredients"}
       </button>
+      {expand && (
+        <div className="m-5">
+          {ingredientLines.map((ingredient, idx) => (
+            <p key={idx}>{ingredient}</p>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

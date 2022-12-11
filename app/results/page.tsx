@@ -3,8 +3,7 @@ import RecipeCard from "./RecipeCard";
 
 const fetchRecipes = async (ingredient) => {
   const recipeResponse = await fetch(
-    `https://api.edamam.com/api/recipes/v2?type=public&q=${ingredient}&app_id=${process.env.NEXT_PUBLIC_RECIPE_APP_ID}&app_key=${process.env.NEXT_PUBLIC_RECIPE_APP_KEY}&field=label&field=image&field=url&field=ingredientLines&random=true`,
-    { cache: "force-cache" }
+    `https://api.edamam.com/api/recipes/v2?type=public&q=${ingredient}&app_id=${process.env.NEXT_PUBLIC_RECIPE_APP_ID}&app_key=${process.env.NEXT_PUBLIC_RECIPE_APP_KEY}&field=label&field=image&field=url&field=ingredientLines&random=true`
   );
   const recipes = await recipeResponse.json();
   return recipes.hits;
@@ -25,7 +24,7 @@ const page = async ({ searchParams }) => {
             Here are your recipes
           </h2>
 
-          <div className="grid grid-cols-4 gap-5">
+          <div className="grid grid-cols-4 gap-8">
             {recipes.map(
               (
                 { recipe: { label, image, url, ingredientLines } },
