@@ -1,36 +1,38 @@
-export default function FoodForm({
-  suggestions,
-  handleChange,
-  handleSubmit,
-  onClick,
-  inputValue,
-}) {
+export default function FoodForm({ props }) {
+  const {
+    handleSubmit,
+    handleChange,
+    onClick,
+    inputValue,
+    invalid,
+    suggestions,
+  } = props;
   return (
     <>
-      <p className="text-lg text-gray-600 text-center mb-8">
-        Choose things that are in your pantry and we'll give you some recipes
-      </p>
-
       <form
-        className="flex flex-col border rounded border-slate-300 w-1/2 m-auto"
+        className="flex flex-col border rounded-md border-slate-300 w-1/2 m-auto bg-white drop-shadow-md"
         onSubmit={handleSubmit}
       >
         <div className="p-8">
           <div className="flex flex-col">
-            <label className="mb-5 ">Ingredients</label>
+            <label className="mb-3 text-lg text-gray-600">Ingredients</label>
             <input
-              id="suggest"
               type="text"
               onChange={handleChange}
-              className="w-1/2"
+              className="text-gray-600 border rounded-md border-slate-300 p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
               placeholder="start typing to show ingredients"
               value={inputValue}
             />
+            {invalid && (
+              <div className="text-red-600 text-sm">
+                Please choose at least one ingredient
+              </div>
+            )}
             {suggestions.length > 0 && (
               <div className="border border-slate-200 w-1/2">
                 {suggestions.map((suggestion, idx) => (
                   <p
-                    className="hover:cursor-pointer hover:text-slate-500 border-b border-slate-200 p-2"
+                    className="text-slate-600 hover:cursor-pointer hover:text-emerald-300 border-b border-slate-200 p-2"
                     onClick={onClick}
                     key={idx}
                   >
@@ -42,11 +44,12 @@ export default function FoodForm({
           </div>
 
           <div className="flex justify-center">
-            <input
-              className="bg-orange-500 m-4 p-2 rounded-md hover:cursor-pointer hover:bg-orange-400"
-              type="submit"
-              value="Submit"
-            />
+            <button
+              className="bg-emerald-500 mb-2 p-2 mt-8 rounded-md hover:cursor-pointer
+              hover:bg-emerald-400 text-slate-100"
+            >
+              Submit
+            </button>
           </div>
         </div>
       </form>
