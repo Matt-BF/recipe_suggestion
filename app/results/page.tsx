@@ -4,14 +4,14 @@ import Link from "next/link";
 import RecipeCard from "./RecipeCard";
 
 const fetchRecipes = async (ingredient) => {
-  /* const recipeResponse = await fetch(
+  const recipeResponse = await fetch(
     `https://api.edamam.com/api/recipes/v2?type=public&q=${ingredient}&app_id=${process.env.NEXT_PUBLIC_RECIPE_APP_ID}&app_key=${process.env.NEXT_PUBLIC_RECIPE_APP_KEY}&field=label&field=image&field=url&field=ingredientLines&random=true`
   );
   const recipes = await recipeResponse.json();
-  return recipes.hits; */
-  const recipeResponse = await fetch("http://localhost:3000/res_test.json");
-  const recipes = await recipeResponse.json();
   return recipes.hits;
+  /* const recipeResponse = await fetch("http://localhost:3000/res_test.json");
+  const recipes = await recipeResponse.json();
+  return recipes.hits; */
 };
 
 const page = async ({ searchParams }) => {
