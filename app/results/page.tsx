@@ -18,22 +18,36 @@ const page = async ({ searchParams }) => {
       <Link className="mb-5 p-2 border rounded-md hover:bg-slate-200" href="/">
         &larr; Go back
       </Link>
-      <h2 className="text-3xl text-center text-gray-600 p-8 ">
-        Here are your recipes
-      </h2>
-      <div className="grid grid-cols-4 gap-5">
-        {recipes.map(
-          ({ recipe: { label, image, url, ingredientLines } }, idx: number) => (
-            <RecipeCard
-              key={idx}
-              label={label}
-              image={image}
-              url={url}
-              ingredientLines={ingredientLines}
-            />
-          )
-        )}
-      </div>
+
+      {recipes.length > 0 ? (
+        <>
+          <h2 className="text-3xl text-center text-gray-600 p-8 ">
+            Here are your recipes
+          </h2>
+
+          <div className="grid grid-cols-4 gap-5">
+            {recipes.map(
+              (
+                { recipe: { label, image, url, ingredientLines } },
+                idx: number
+              ) => (
+                <RecipeCard
+                  key={idx}
+                  label={label}
+                  image={image}
+                  url={url}
+                  ingredientLines={ingredientLines}
+                />
+              )
+            )}
+          </div>
+        </>
+      ) : (
+        <p className="text-center text-gray-600">
+          We are sorry, but no recipes were found with your ingredients! Please
+          try again with other inputs
+        </p>
+      )}
     </div>
   );
 };
