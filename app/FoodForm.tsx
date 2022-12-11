@@ -45,8 +45,8 @@ export default function FoodForm({ props }) {
 
           <div className="flex justify-center">
             <button
-              className="bg-emerald-500 mb-2 p-2 mt-8 rounded-md hover:cursor-pointer
-              hover:bg-emerald-400 text-slate-100"
+              className="bg-emerald-500 mb-2 p-2 mt-8 rounded-md
+              hover:bg-emerald-400 text-slate-100 "
             >
               Submit
             </button>
