@@ -3,6 +3,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import RecipeCard from "./RecipeCard";
 
+type Props = {
+  params?: {
+    num?: string;
+  };
+  searchParams?: {
+    ingredient?: string;
+  };
+};
+
 const fetchRecipes = async (ingredient) => {
   const recipeResponse = await fetch(
     `https://api.edamam.com/api/recipes/v2?type=public&q=${ingredient}&app_id=${process.env.NEXT_PUBLIC_RECIPE_APP_ID}&app_key=${process.env.NEXT_PUBLIC_RECIPE_APP_KEY}&field=label&field=image&field=url&field=ingredientLines&random=true`
@@ -14,7 +23,11 @@ const fetchRecipes = async (ingredient) => {
   return recipes.hits; */
 };
 
-const page = async ({ searchParams }) => {
+const page = async ({
+  searchParams,
+}: {
+  searchParams?: { ingredient: string | undefined };
+}) => {
   const recipes = await fetchRecipes(searchParams.ingredient);
 
   return (
