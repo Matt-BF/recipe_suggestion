@@ -23,7 +23,8 @@ const page = () => {
     if (!ingredient) {
       setInvalid(true);
     } else {
-      router.push("/results?ingredient=" + ingredient);
+      //send ingredient to results page
+      router.push(`/results/?ingredient=${ingredient}`);
     }
   };
 
