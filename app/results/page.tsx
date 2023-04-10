@@ -1,6 +1,7 @@
 import { faCircleArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import { Suspense } from "react";
 import RecipeCard from "./RecipeCard";
 
 type Props = {
@@ -43,32 +44,33 @@ const page = async ({
       <h2 className="text-3xl text-center text-gray-600 m-8">
         Here are your recipes
       </h2>
-
-      {recipes.length > 0 ? (
-        <>
-          <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-8">
-            {recipes.map(
-              (
-                { recipe: { label, image, url, ingredientLines } },
-                idx: number
-              ) => (
-                <RecipeCard
-                  key={idx}
-                  label={label}
-                  image={image}
-                  url={url}
-                  ingredientLines={ingredientLines}
-                />
-              )
-            )}
-          </div>
-        </>
-      ) : (
-        <p className="text-center text-gray-600">
-          We are sorry, but no recipes were found with your ingredients! Please
-          try again with other inputs
-        </p>
-      )}
+      <Suspense fallback={<p>Loading recipes...</p>}>
+        {recipes.length > 0 ? (
+          <>
+            <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-8">
+              {recipes.map(
+                (
+                  { recipe: { label, image, url, ingredientLines } },
+                  idx: number
+                ) => (
+                  <RecipeCard
+                    key={idx}
+                    label={label}
+                    image={image}
+                    url={url}
+                    ingredientLines={ingredientLines}
+                  />
+                )
+              )}
+            </div>
+          </>
+        ) : (
+          <p className="text-center text-gray-600">
+            We are sorry, but no recipes were found with your ingredients!
+            Please try again with other inputs
+          </p>
+        )}
+      </Suspense>
     </div>
   );
 };
