@@ -44,33 +44,31 @@ const page = async ({
       <h2 className="text-3xl text-center text-gray-600 m-8">
         Here are your recipes
       </h2>
-      <Suspense fallback={<p>Loading recipes...</p>}>
-        {recipes.length > 0 ? (
-          <>
-            <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-8">
-              {recipes.map(
-                (
-                  { recipe: { label, image, url, ingredientLines } },
-                  idx: number
-                ) => (
-                  <RecipeCard
-                    key={idx}
-                    label={label}
-                    image={image}
-                    url={url}
-                    ingredientLines={ingredientLines}
-                  />
-                )
-              )}
-            </div>
-          </>
-        ) : (
-          <p className="text-center text-gray-600">
-            We are sorry, but no recipes were found with your ingredients!
-            Please try again with other inputs
-          </p>
-        )}
-      </Suspense>
+      {recipes.length > 0 ? (
+        <>
+          <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-8">
+            {recipes.map(
+              (
+                { recipe: { label, image, url, ingredientLines } },
+                idx: number
+              ) => (
+                <RecipeCard
+                  key={idx}
+                  label={label}
+                  image={image}
+                  url={url}
+                  ingredientLines={ingredientLines}
+                />
+              )
+            )}
+          </div>
+        </>
+      ) : (
+        <p className="text-center text-gray-600">
+          We are sorry, but no recipes were found with your ingredients! Please
+          try again with other inputs
+        </p>
+      )}
     </div>
   );
 };
