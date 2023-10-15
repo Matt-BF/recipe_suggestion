@@ -3,7 +3,7 @@ import FoodForm from "./FoodForm";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-const page = () => {
+const Page = () => {
   const [ingredients, setIngredients] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [invalid, setInvalid] = useState(false);
@@ -63,4 +63,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
