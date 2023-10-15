@@ -3,7 +3,7 @@
 module.exports = {
   reactStrictMode: true,
   experimental: {
-    appDir: true,
+    serverActions: true,
   },
   images: {
     domains: ["edamam-product-images.s3.amazonaws.com"],

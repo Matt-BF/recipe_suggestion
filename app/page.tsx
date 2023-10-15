@@ -3,54 +3,49 @@ import FoodForm from "./FoodForm";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-const fetchSuggestions = async (ingredient) => {
-  const suggestionsResponse = await fetch(
-    `https://api.edamam.com/auto-complete?app_id=${process.env.NEXT_PUBLIC_FOOD_APP_ID}&app_key=${process.env.NEXT_PUBLIC_FOOD_APP_KEY}&q=${ingredient}`
-  );
-  const suggestions = await suggestionsResponse.json();
-  return suggestions;
-};
-
-const page = () => {
-  const [ingredient, setIngredient] = useState(null);
-  const [suggestions, setSuggestions] = useState([]);
+const Page = () => {
+  const [ingredients, setIngredients] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [invalid, setInvalid] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!ingredient) {
+    if (ingredients.length === 0) {
       setInvalid(true);
     } else {
       //send ingredient to results page
-      router.push(`/results/?ingredient=${ingredient}`);
+      //console.log(`/results/?ingredient=${ingredients.join("&ingredient=")}`);
+      router.push(`/results/?ingredient=${ingredients.join("&ingredient=")}`);
     }
+  };
+
+  const handleAddIngredient = (e) => {
+    if (e.key === "Enter" && inputValue !== "") {
+      setIngredients([...ingredients, inputValue]);
+      setInputValue("");
+      e.preventDefault();
+    }
+  };
+
+  const handleRemoveIngredient = (e) => {
+    const newIngredients = ingredients.filter(
+      (ingredient) => ingredient !== e.target.value
+    );
+    setIngredients(newIngredients);
+    console.log(e.target.value);
   };
 
   const handleChange = async (e) => {
-    setIngredient(e.target.value);
     setInputValue(e.target.value);
-
-    if (e.target.value.length >= 3) {
-      const suggestions = await fetchSuggestions(e.target.value);
-      setSuggestions(suggestions);
-    } else {
-      setSuggestions([]);
-    }
-  };
-
-  const putSuggestionOnInput = (e) => {
-    setInputValue(e.target.innerText);
-    setIngredient(e.target.innerText);
-    setSuggestions([]);
   };
 
   const props = {
-    suggestions: suggestions,
     handleChange: handleChange,
     handleSubmit: handleSubmit,
-    onClick: putSuggestionOnInput,
+    handleAddIngredient: handleAddIngredient,
+    handleRemoveIngredient: handleRemoveIngredient,
+    ingredients: ingredients,
     inputValue: inputValue,
     invalid: invalid,
   };
@@ -67,4 +62,5 @@ const page = () => {
     </div>
   );
 };
-export default page;
+
+export default Page;

@@ -1,21 +1,14 @@
 import { faCircleArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { Suspense } from "react";
 import RecipeCard from "./RecipeCard";
 
-type Props = {
-  params?: {
-    num?: string;
-  };
-  searchParams?: {
-    ingredient?: string;
-  };
-};
-
-const fetchRecipes = async (ingredient) => {
+const fetchRecipes = async (ingredients) => {
+  if (!ingredients) {
+    return [];
+  }
   const recipeResponse = await fetch(
-    `https://api.edamam.com/api/recipes/v2?type=public&q=${ingredient}&app_id=${process.env.NEXT_PUBLIC_RECIPE_APP_ID}&app_key=${process.env.NEXT_PUBLIC_RECIPE_APP_KEY}&field=label&field=image&field=url&field=ingredientLines&random=true`,
+    `https://api.edamam.com/api/recipes/v2?type=public&q=${ingredients}&app_id=${process.env.RECIPE_APP_ID}&app_key=${process.env.RECIPE_APP_KEY}&field=label&field=image&field=url&field=ingredientLines&random=true`,
     { next: { revalidate: 0 } }
   );
   const recipes = await recipeResponse.json();
@@ -30,8 +23,8 @@ const page = async ({
 }: {
   searchParams?: { ingredient?: string };
 }) => {
-  const { ingredient } = searchParams;
-  const recipes = await fetchRecipes(ingredient);
+  const ingredients = searchParams?.ingredient;
+  const recipes = await fetchRecipes(ingredients);
 
   return (
     <div className="p-8">

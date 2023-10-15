@@ -5,10 +5,11 @@ export default function FoodForm({ props }) {
   const {
     handleSubmit,
     handleChange,
-    onClick,
+    handleAddIngredient,
+    handleRemoveIngredient,
+    ingredients,
     inputValue,
     invalid,
-    suggestions,
   } = props;
   return (
     <>
@@ -19,9 +20,24 @@ export default function FoodForm({ props }) {
         <div className="p-8">
           <div className="flex flex-col">
             <label className="mb-3 text-lg text-gray-600">Ingredients</label>
+            {ingredients.length > 0 && (
+              <div className="flex flex-wrap mb-2">
+                {ingredients.map((ingredient: string) => (
+                  <button
+                    className="border cursor-pointer border-slate-200 bg-teal-50 rounded-md p-2 mr-2 mb-2"
+                    key={ingredient}
+                    onClick={handleRemoveIngredient}
+                    value={ingredient}
+                  >
+                    {ingredient}
+                  </button>
+                ))}
+              </div>
+            )}
             <input
               type="text"
               onChange={handleChange}
+              onKeyDown={handleAddIngredient}
               className="text-gray-600 border rounded-md border-slate-300 p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
               placeholder="start typing to show ingredients"
               value={inputValue}
@@ -31,23 +47,11 @@ export default function FoodForm({ props }) {
                 Please choose at least one ingredient
               </div>
             )}
-            {suggestions.length > 0 && (
-              <div className="border border-slate-200 w-fit">
-                {suggestions.map((suggestion, idx) => (
-                  <p
-                    className="text-slate-600 hover:cursor-pointer hover:text-emerald-300 border-b border-slate-200 p-2"
-                    onClick={onClick}
-                    key={idx}
-                  >
-                    {suggestion}
-                  </p>
-                ))}
-              </div>
-            )}
           </div>
 
           <div className="flex justify-center">
             <button
+              type="submit"
               className="border border-emerald-500 mb-2 p-2 mt-8 rounded-md
               hover:bg-emerald-100 text-gray-500 "
             >
