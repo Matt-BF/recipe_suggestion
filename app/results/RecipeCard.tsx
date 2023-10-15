@@ -25,6 +25,7 @@ const RecipeCard = ({ label, image, url, ingredientLines }) => {
       <p className="text-center mt-5 mb-2 text-gray-500">
         <a
           target="_blank"
+          rel="noreferrer"
           className="border rounded-md p-2 border-emerald-500 text-gray-500 hover:bg-emerald-100 mt-5"
           href={url}
         >
