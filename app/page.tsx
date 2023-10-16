@@ -1,5 +1,6 @@
 "use client";
 import FoodForm from "./FoodForm";
+import React from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -9,13 +10,20 @@ const Page = () => {
   const [invalid, setInvalid] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (ingredients.length === 0) {
+    if (ingredients.length === 0 && inputValue === "") {
       setInvalid(true);
+    } else if (
+      (ingredients.length === 0 && inputValue !== "") ||
+      (ingredients.length > 0 && inputValue !== "")
+    ) {
+      setIngredients([...ingredients, inputValue]);
+      setInputValue("");
+      //send ingredient to results page
+      //router.push(`/results/?ingredient=${ingredients.join("&ingredient=")}`);
     } else {
       //send ingredient to results page
-      //console.log(`/results/?ingredient=${ingredients.join("&ingredient=")}`);
       router.push(`/results/?ingredient=${ingredients.join("&ingredient=")}`);
     }
   };
@@ -33,7 +41,6 @@ const Page = () => {
       (ingredient) => ingredient !== e.target.value
     );
     setIngredients(newIngredients);
-    console.log(e.target.value);
   };
 
   const handleChange = async (e) => {
